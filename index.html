@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Daily free courses, IT bootcamps, and government skill trainings from every corner of Pakistan. NAVTTC, DigiSkills, Saylani, TEVTA, and more.">
+  <title>Free Courses Pakistan | Daily Free Courses Across Pakistan</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Strip -->
+  <aside class="top-strip" role="complementary" aria-label="Announcement">
+    <span class="pulse-dot" aria-hidden="true"></span>
+    <span>Daily Free Courses Radar • Monitoring institutes & government portals across Pakistan</span>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" role="banner">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand" aria-label="Free Courses Pakistan Home">
+        <div class="brand-icon">
+          <!-- Graduation Cap / Book Icon -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+        </div>
+        <div class="brand-text">PakCourses<span>Free</span> 🇵🇰</div>
+      </a>
+
+      <nav class="nav-actions" aria-label="Main Navigation">
+        <button class="btn btn-outline btn-open-submit" title="Submit a Free Course Announcement">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="nav-btn-text">Submit Course</span>
+        </button>
+
+        <button class="btn btn-primary btn-open-alert" title="Get Daily Alerts">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="nav-btn-text">Daily Alerts</span>
+        </button>
+
+        <button class="btn-icon-only" id="themeToggleBtn" aria-label="Toggle dark and light theme" title="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" aria-label="Introduction">
+      <div class="container">
+        <div class="hero-tag">
+          <span>🇵🇰 Nationwide Skill Radar</span>
+          <span>•</span>
+          <span>100% Free Tuition</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Free Courses from <span>Every Corner</span> of Pakistan
+        </h1>
+        
+        <p class="hero-desc">
+          Whenever a verified free course, technical bootcamp, or government scholarship is announced anywhere in the country — from Karachi, Lahore, and Islamabad to Peshawar, Quetta, and Gilgit — it will appear right here.
+        </p>
+
+        <div class="hero-metrics">
+          <div class="metric-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M20 6L9 17l-5-5"></path>
+            </svg>
+            <span><strong>All 4 Provinces</strong> + ICT, GB & AJK</span>
+          </div>
+          <div class="metric-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M20 6L9 17l-5-5"></path>
+            </svg>
+            <span><strong>Zero Fees</strong> Only Verified Free</span>
+          </div>
+          <div class="metric-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M20 6L9 17l-5-5"></path>
+            </svg>
+            <span><strong>Daily</strong> Real-time Updates</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="filter-section" aria-label="Course Filters">
+      <div class="container">
+        <div class="filter-card">
+          <!-- Search Input -->
+          <div class="search-row">
+            <div class="search-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <input 
+              type="text" 
+              id="searchInput" 
+              class="search-input" 
+              placeholder="Search course title, institute (e.g. NAVTTC, DigiSkills, PITB, Saylani), or city..."
+              autocomplete="off"
+            >
+            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Select Filters -->
+          <div class="select-filters-grid">
+            <!-- Province / Territory -->
+            <select id="provinceFilter" class="filter-select" aria-label="Filter by Province or Territory">
+              <option value="">All Regions / Across Pakistan</option>
+              <option value="Nationwide Online">🌐 Nationwide Online</option>
+              <option value="Punjab">Punjab (Lahore, Rwp, Fsd...)</option>
+              <option value="Sindh">Sindh (Karachi, Hyd, Sukkur...)</option>
+              <option value="Khyber Pakhtunkhwa">KPK (Peshawar, Mardan, Swat...)</option>
+              <option value="Balochistan">Balochistan (Quetta, Gwadar...)</option>
+              <option value="Islamabad Capital Territory">Islamabad (ICT)</option>
+              <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+              <option value="Azad Kashmir">Azad Jammu & Kashmir</option>
+            </select>
+
+            <!-- Category -->
+            <select id="categoryFilter" class="filter-select" aria-label="Filter by Category">
+              <option value="">All Categories</option>
+              <option value="Tech & AI">💻 Tech, Coding & AI</option>
+              <option value="Freelancing & Digital Skills">🚀 Freelancing & Digital Skills</option>
+              <option value="Graphic Design & Media">🎨 Graphic Design & UI/UX</option>
+              <option value="Vocational & Technical">⚡ Vocational & Technical</option>
+              <option value="Business & Languages">📈 Business & English</option>
+            </select>
+
+            <!-- Delivery Mode -->
+            <select id="modeFilter" class="filter-select" aria-label="Filter by Delivery Mode">
+              <option value="">All Delivery Modes</option>
+              <option value="Online">Online / Self-Paced</option>
+              <option value="Physical">Physical (On-Campus)</option>
+              <option value="Hybrid">Hybrid (Online + Physical)</option>
+            </select>
+          </div>
+
+          <!-- Quick Filter Chips -->
+          <div class="quick-chips-row">
+            <span class="quick-chip-label">Quick Filters:</span>
+            <button class="chip" data-filter="navttc">NAVTTC</button>
+            <button class="chip" data-filter="digiskills">DigiSkills</button>
+            <button class="chip" data-filter="saylani">Saylani (SMIT)</button>
+            <button class="chip" data-filter="stipend">💰 With Stipend</button>
+            <button class="chip" data-filter="saved">🔖 My Bookmarks</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course Feed Section -->
+    <section class="listings-section" aria-label="Course Announcements">
+      <div class="container">
+        <!-- Feed Header & Controls -->
+        <div class="listings-header">
+          <div class="listings-title-group">
+            <h2 class="listings-title">Course Announcements</h2>
+            <span class="counter-badge" id="courseCountBadge">0 courses</span>
+          </div>
+
+          <div class="listings-controls">
+            <!-- Sort dropdown -->
+            <select id="sortSelect" class="sort-select" aria-label="Sort courses">
+              <option value="newest">Sort: Newest Announced</option>
+              <option value="deadline">Sort: Deadline Closing Soon</option>
+              <option value="title">Sort: Course Title (A-Z)</option>
+            </select>
+
+            <!-- Demo Preview Toggle for Testing -->
+            <button class="btn btn-outline" id="demoToggleBtn" title="Toggle sample courses to preview populated state">
+              Preview Sample Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Courses Container: Default blank state is handled by app.js -->
+        <div class="courses-container" id="coursesContainer" role="region" aria-live="polite">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Coverage / How It Works Section -->
+    <section class="coverage-section" aria-label="How We Track Courses">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Nationwide Network</span>
+          <h2 class="section-title">How Courses Are Sourced Daily</h2>
+        </div>
+
+        <div class="coverage-grid">
+          <div class="coverage-card">
+            <div class="cov-icon">🏛️</div>
+            <h3 class="cov-title">Government & Technical Boards</h3>
+            <p class="cov-desc">Monitored directly from NAVTTC, TEVTA Punjab, KP-TEVTA, Sindh TEVTA, and Prime Minister's Youth Skills programs.</p>
+          </div>
+
+          <div class="coverage-card">
+            <div class="cov-icon">💻</div>
+            <h3 class="cov-title">National Online Portals</h3>
+            <p class="cov-desc">Tracked from national remote learning portals including DigiSkills.pk, Ignite MoITT, Virtual University, and Coursera Pakistan seats.</p>
+          </div>
+
+          <div class="coverage-card">
+            <div class="cov-icon">🤝</div>
+            <h3 class="cov-title">Welfare & Tech Foundations</h3>
+            <p class="cov-desc">Aggregated from Saylani Welfare (SMIT), AlKhidmat Bano Qabil, Akhuwat, and community tech bootcamps across provincial capitals.</p>
+          </div>
+
+          <div class="coverage-card">
+            <div class="cov-icon">📣</div>
+            <h3 class="cov-title">Direct University & Community Submissions</h3>
+            <p class="cov-desc">Instructors, universities, and students can submit new free program links directly for instant verification and publication.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Submit Course -->
+  <div class="modal-overlay" id="submitModal" role="dialog" aria-modal="true" aria-labelledby="submitModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="submitModalTitle">Submit a Free Course</h3>
+        <button class="modal-close" id="closeSubmitModal" aria-label="Close modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="submitCourseForm" class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="courseTitle">Course / Program Title *</label>
+          <input type="text" id="courseTitle" name="courseTitle" class="form-control" placeholder="e.g. Free Certified Artificial Intelligence Bootcamp" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="providerName">Institute / Provider *</label>
+            <input type="text" id="providerName" name="providerName" class="form-control" placeholder="e.g. NAVTTC / Saylani / University" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="categorySelect">Category *</label>
+            <select id="categorySelect" name="category" class="form-control" required>
+              <option value="Tech & AI">Tech, Coding & AI</option>
+              <option value="Freelancing & Digital Skills">Freelancing & Digital Skills</option>
+              <option value="Graphic Design & Media">Graphic Design & Media</option>
+              <option value="Vocational & Technical">Vocational & Technical</option>
+              <option value="Business & Languages">Business & Languages</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="provinceSelect">Province / Territory *</label>
+            <select id="provinceSelect" name="province" class="form-control" required>
+              <option value="Nationwide Online">Nationwide Online</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Sindh">Sindh</option>
+              <option value="Khyber Pakhtunkhwa">Khyber Pakhtunkhwa</option>
+              <option value="Balochistan">Balochistan</option>
+              <option value="Islamabad Capital Territory">Islamabad (ICT)</option>
+              <option value="Gilgit-Baltistan">Gilgit-Baltistan</option>
+              <option value="Azad Kashmir">Azad Kashmir</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cityInput">City *</label>
+            <input type="text" id="cityInput" name="city" class="form-control" placeholder="e.g. Lahore, Karachi, or Online" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="modeSelect">Mode *</label>
+            <select id="modeSelect" name="mode" class="form-control" required>
+              <option value="Online">Online</option>
+              <option value="Physical">Physical (On-Campus)</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="deadlineInput">Last Date to Apply</label>
+            <input type="date" id="deadlineInput" name="deadline" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="durationInput">Duration</label>
+          <input type="text" id="durationInput" name="duration" class="form-control" placeholder="e.g. 3 Months, 8 Weeks, or Self-paced">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="applyUrlInput">Official Registration Link / URL *</label>
+          <input type="url" id="applyUrlInput" name="applyUrl" class="form-control" placeholder="https://..." required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="descriptionInput">Short Details / Description</label>
+          <textarea id="descriptionInput" name="description" rows="3" class="form-control" placeholder="Briefly describe who is eligible, test requirements, stipend details, etc."></textarea>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+          <input type="checkbox" id="stipendCheck" name="stipend">
+          <label for="stipendCheck" style="font-size: 0.88rem; cursor: pointer;">This program includes a monthly stipend for students</label>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Post Free Course Announcement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Daily Alerts -->
+  <div class="modal-overlay" id="alertModal" role="dialog" aria-modal="true" aria-labelledby="alertModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="alertModalTitle">Never Miss a Free Course</h3>
+        <button class="modal-close" id="closeAlertModal" aria-label="Close modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="subscribeAlertForm" class="modal-body">
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+          Get a daily or instant notification as soon as any government body, university, or tech institute in Pakistan opens admissions for 100% free courses.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">Alert Channel</label>
+          <div style="display: flex; gap: 1rem; margin-bottom: 0.5rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; cursor: pointer;">
+              <input type="radio" name="channel" value="whatsapp" checked> WhatsApp
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; cursor: pointer;">
+              <input type="radio" name="channel" value="email"> Email
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contactInput">Your WhatsApp Number or Email Address *</label>
+          <input type="text" id="contactInput" name="contact" class="form-control" placeholder="+92 300 1234567 or you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="preferredProvince">Preferred Region</label>
+          <select id="preferredProvince" class="form-control">
+            <option value="all">All Pakistan (Nationwide & Online)</option>
+            <option value="punjab">Punjab</option>
+            <option value="sindh">Sindh</option>
+            <option value="kpk">Khyber Pakhtunkhwa</option>
+            <option value="balochistan">Balochistan</option>
+            <option value="ict">Islamabad (ICT)</option>
+            <option value="gb">Gilgit-Baltistan</option>
+            <option value="ajk">Azad Kashmir</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          Activate Daily Alerts
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="assertive"></div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div class="brand-text">PakCourses<span>Free</span> 🇵🇰</div>
+        </div>
+
+        <div class="footer-nav">
+          <a href="#" class="btn-open-submit">Submit Course</a>
+          <a href="#" class="btn-open-alert">Daily Alerts</a>
+          <a href="#searchInput">Search Filter</a>
+          <a href="https://nsis.navttc.gov.pk/" target="_blank" rel="noopener noreferrer">NAVTTC Official</a>
+          <a href="https://digiskills.pk/" target="_blank" rel="noopener noreferrer">DigiSkills</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 PakCourses Free. Dedicated to empowering youth across all corners of Pakistan with zero-cost education.</p>
+        <p>Disclaimer: All listed programs are 100% free with no tuition fees.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
