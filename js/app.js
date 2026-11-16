@@ -1,14 +1,16 @@
 /**
  * Free Courses Pakistan - Application Controller
- * Handles search, filter, render, empty states, bookmarking, and submissions.
+ * Completely blank state ready for AI automation pipeline.
  */
 
 document.addEventListener("DOMContentLoaded", async () => {
   // State
   let allCourses = [];
-  let isDemoActive = false;
   let bookmarkedIds = JSON.parse(localStorage.getItem("pk_bookmarked_courses") || "[]");
   let activeQuickFilter = null;
+
+  // Clear any old stored sample preview data
+  localStorage.removeItem("pk_free_courses");
 
   // DOM Elements
   const container = document.getElementById("coursesContainer");
@@ -19,7 +21,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categoryFilter = document.getElementById("categoryFilter");
   const modeFilter = document.getElementById("modeFilter");
   const sortSelect = document.getElementById("sortSelect");
-  const demoToggleBtn = document.getElementById("demoToggleBtn");
   const themeToggleBtn = document.getElementById("themeToggleBtn");
   
   // Modals & Forms
@@ -39,27 +40,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1. Initialize Theme
   initTheme();
 
-  // 2. Fetch Initial Courses (blank by default as requested)
+  // 2. Fetch live courses from data/courses.json (empty [] by default)
   allCourses = await fetchCoursesData();
   renderCourses();
 
   // 3. Search & Filter Listeners
-  searchInput.addEventListener("input", () => {
-    clearSearchBtn.classList.toggle("active", searchInput.value.length > 0);
-    renderCourses();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      if (clearSearchBtn) {
+        clearSearchBtn.classList.toggle("active", searchInput.value.length > 0);
+      }
+      renderCourses();
+    });
+  }
 
-  clearSearchBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    clearSearchBtn.classList.remove("active");
-    searchInput.focus();
-    renderCourses();
-  });
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      clearSearchBtn.classList.remove("active");
+      searchInput.focus();
+      renderCourses();
+    });
+  }
 
-  provinceFilter.addEventListener("change", renderCourses);
-  categoryFilter.addEventListener("change", renderCourses);
-  modeFilter.addEventListener("change", renderCourses);
-  sortSelect.addEventListener("change", renderCourses);
+  provinceFilter?.addEventListener("change", renderCourses);
+  categoryFilter?.addEventListener("change", renderCourses);
+  modeFilter?.addEventListener("change", renderCourses);
+  sortSelect?.addEventListener("change", renderCourses);
 
   // Quick Chips
   chipButtons.forEach((chip) => {
@@ -77,33 +84,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  // 4. Demo Data Toggle (Allows user to preview filled cards or keep blank)
-  if (demoToggleBtn) {
-    demoToggleBtn.addEventListener("click", () => {
-      if (!isDemoActive) {
-        allCourses = [...SAMPLE_COURSES];
-        isDemoActive = true;
-        demoToggleBtn.textContent = "Clear to Blank Mode";
-        demoToggleBtn.classList.add("btn-subtle");
-        showToast("Loaded sample Pakistan courses for preview!");
-      } else {
-        allCourses = [];
-        isDemoActive = false;
-        demoToggleBtn.textContent = "Preview Sample Data";
-        demoToggleBtn.classList.remove("btn-subtle");
-        showToast("Reset to blank section.");
-      }
-      renderCourses();
-    });
-  }
-
-  // 5. Main Filter & Render Logic
+  // 4. Main Filter & Render Logic
   function getFilteredCourses() {
-    const q = searchInput.value.trim().toLowerCase();
-    const selProvince = provinceFilter.value;
-    const selCategory = categoryFilter.value;
-    const selMode = modeFilter.value;
-    const sortBy = sortSelect.value;
+    if (!allCourses || allCourses.length === 0) return [];
+
+    const q = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    const selProvince = provinceFilter ? provinceFilter.value : "";
+    const selCategory = categoryFilter ? categoryFilter.value : "";
+    const selMode = modeFilter ? modeFilter.value : "";
+    const sortBy = sortSelect ? sortSelect.value : "newest";
 
     return allCourses
       .filter((course) => {
@@ -124,12 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Quick Chips Filters
         if (activeQuickFilter) {
           if (activeQuickFilter === "stipend" && !course.stipend) return false;
-          if (activeQuickFilter === "navttc" && !course.provider.toLowerCase().includes("navttc")) return false;
-          if (activeQuickFilter === "digiskills" && !course.provider.toLowerCase().includes("digiskills")) return false;
-          if (activeQuickFilter === "saylani" && !course.provider.toLowerCase().includes("saylani")) return false;
-          if (activeQuickFilter === "saved") {
-            if (!bookmarkedIds.includes(course.id)) return false;
-          }
+          if (activeQuickFilter === "saved" && !bookmarkedIds.includes(course.id)) return false;
         }
 
         return true;
@@ -140,18 +124,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else if (sortBy === "title") {
           return a.title.localeCompare(b.title);
         } else {
-          // Default: newest announced
           return new Date(b.announcedDate || 0) - new Date(a.announcedDate || 0);
         }
       });
   }
 
   function renderCourses() {
-    const filtered = getFilteredCourses();
-    courseCountBadge.textContent = `${filtered.length} course${filtered.length === 1 ? "" : "s"}`;
+    if (!container) return;
 
+    const filtered = getFilteredCourses();
+    
+    if (courseCountBadge) {
+      courseCountBadge.textContent = `${filtered.length} course${filtered.length === 1 ? "" : "s"}`;
+    }
+
+    // Keep completely blank when there are no courses
     if (filtered.length === 0) {
-      renderEmptyState();
+      container.innerHTML = "";
       return;
     }
 
@@ -239,89 +228,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     attachCardEventListeners();
   }
 
-  // Render Clean Empty State
-  function renderEmptyState() {
-    const hasFilters = searchInput.value || provinceFilter.value || categoryFilter.value || modeFilter.value || activeQuickFilter;
-
-    if (hasFilters) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              <line x1="8" y1="11" x2="14" y2="11"></line>
-            </svg>
-          </div>
-          <h3 class="empty-state-title">No Matching Courses Found</h3>
-          <p class="empty-state-desc">Try clearing your filters or search keywords to see other announcements across Pakistan.</p>
-          <div class="empty-state-actions">
-            <button class="btn btn-outline" id="resetFiltersBtn">Reset All Filters</button>
-          </div>
-        </div>
-      `;
-      document.getElementById("resetFiltersBtn")?.addEventListener("click", resetAllFilters);
-    } else {
-      // Default clean blank state as requested by user
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-              <path d="M12 6v6"></path>
-              <path d="M9 9h6"></path>
-            </svg>
-          </div>
-          <h3 class="empty-state-title">No Courses Announced Yet Today</h3>
-          <p class="empty-state-desc">
-            Whenever a verified free course, technical bootcamp, or scholarship is announced anywhere in Pakistan (NAVTTC, TEVTA, universities, or tech foundations), it will instantly appear right here.
-          </p>
-          <div class="empty-state-actions">
-            <button class="btn btn-primary btn-open-alert">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-              </svg>
-              Get Daily WhatsApp / Email Alerts
-            </button>
-            <button class="btn btn-outline btn-open-submit">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              Submit a Free Course You Found
-            </button>
-            <button class="btn btn-subtle" id="previewSamplesInlineBtn">
-              Preview Demo Layout
-            </button>
-          </div>
-        </div>
-      `;
-
-      // Re-bind modal triggers inside dynamic empty state
-      document.querySelector(".empty-state .btn-open-alert")?.addEventListener("click", () => openModal(alertModal));
-      document.querySelector(".empty-state .btn-open-submit")?.addEventListener("click", () => openModal(submitModal));
-      document.getElementById("previewSamplesInlineBtn")?.addEventListener("click", () => {
-        demoToggleBtn?.click();
-      });
-    }
-  }
-
-  function resetAllFilters() {
-    searchInput.value = "";
-    clearSearchBtn.classList.remove("active");
-    provinceFilter.value = "";
-    categoryFilter.value = "";
-    modeFilter.value = "";
-    activeQuickFilter = null;
-    chipButtons.forEach((c) => c.classList.remove("active"));
-    renderCourses();
-  }
-
   // Card Event Listeners (Bookmark & Share)
   function attachCardEventListeners() {
-    // Bookmarks
     document.querySelectorAll(".bookmark-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-id");
@@ -340,7 +248,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // Share
     document.querySelectorAll(".share-btn").forEach((btn) => {
       btn.addEventListener("click", async () => {
         const title = btn.getAttribute("data-title");
@@ -349,12 +256,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           try {
             await navigator.share({
               title: title,
-              text: `Check out this 100% free course in Pakistan: ${title}`,
+              text: `Free Course in Pakistan: ${title}`,
               url: url
             });
-          } catch (e) {
-            // User dismissed or failed
-          }
+          } catch (e) {}
         } else {
           navigator.clipboard.writeText(url);
           showToast("Course link copied to clipboard!");
@@ -363,7 +268,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // 6. Modals Management
+  // 5. Modals Management
   function openModal(modal) {
     if (!modal) return;
     modal.classList.add("active");
@@ -395,12 +300,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // 7. Handle Course Submission Form
+  // 6. Handle Course Submission Form (UI input)
   submitForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(submitForm);
     const newCourse = {
-      id: "pk-user-" + Date.now(),
+      id: "pk-" + Date.now(),
       title: formData.get("courseTitle").trim(),
       provider: formData.get("providerName").trim(),
       province: formData.get("province"),
@@ -418,24 +323,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     allCourses.unshift(newCourse);
-    localStorage.setItem("pk_free_courses", JSON.stringify(allCourses));
-
     submitForm.reset();
     closeModal(submitModal);
     renderCourses();
-    showToast("Course submitted successfully! It is now live on your site.");
+    showToast("Course added!");
   });
 
-  // 8. Handle Daily Alert Subscription
+  // 7. Handle Daily Alert Subscription
   alertForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     const contact = alertForm.querySelector("input[name='contact']").value;
     alertForm.reset();
     closeModal(alertModal);
-    showToast(`Subscribed successfully for ${contact}! You'll receive daily updates.`);
+    showToast(`Subscribed for ${contact}!`);
   });
 
-  // 9. Theme Management (Light / Dark)
+  // 8. Theme Management
   function initTheme() {
     const savedTheme = localStorage.getItem("pk_theme") || "light";
     document.documentElement.setAttribute("data-theme", savedTheme);
@@ -500,12 +403,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function showToast(message) {
-    let container = document.getElementById("toastContainer");
-    if (!container) {
-      container = document.createElement("div");
-      container.id = "toastContainer";
-      container.className = "toast-container";
-      document.body.appendChild(container);
+    let toastWrapper = document.getElementById("toastContainer");
+    if (!toastWrapper) {
+      toastWrapper = document.createElement("div");
+      toastWrapper.id = "toastContainer";
+      toastWrapper.className = "toast-container";
+      document.body.appendChild(toastWrapper);
     }
 
     const toast = document.createElement("div");
@@ -516,13 +419,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       </svg>
       <span>${escapeHtml(message)}</span>
     `;
-    container.appendChild(toast);
+    toastWrapper.appendChild(toast);
 
     setTimeout(() => {
       toast.style.opacity = "0";
       toast.style.transform = "translateY(10px)";
       toast.style.transition = "all 0.3s ease";
       setTimeout(() => toast.remove(), 300);
-    }, 3500);
+    }, 3000);
   }
 });
